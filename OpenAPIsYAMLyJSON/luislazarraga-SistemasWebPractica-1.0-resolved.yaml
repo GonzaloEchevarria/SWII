@@ -1,0 +1,296 @@
+---
+openapi: 3.0.3
+info:
+  title: API para el MENU de nuestro restaurante
+  description: "# Título\nAPI para los distintos platos de comida que incluimos en el menú.\nCuenta con operaciones CRUD para las comidas e ingredientes y su\ndisponibilidad en la semana \n"
+  version: "1.0"
+servers:
+- url: https://virtserver.swaggerhub.com/luislazarraga/SistemasWebPractica
+  description: SwaggerHub API Auto Mocking
+- url: /api/v1
+  description: Basic Server
+tags:
+- name: comida
+  description: Menu
+- name: diasDeLaSemana
+  description: Los dias donde la comida está disponible en el menu
+paths:
+  /comidas:
+    get:
+      tags:
+      - comida
+      summary: Obtener el menu general
+      operationId: getMenu
+      responses:
+        "200":
+          description: OK/ACK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/comidas'
+    post:
+      tags:
+      - comida
+      summary: Añadir una comida al menu
+      operationId: addComida
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/comida'
+      responses:
+        "201":
+          description: Comida añadida al menú
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/info_nuevo_elemento'
+        default:
+          description: Error al añadir comida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+  /comidas/{id}:
+    get:
+      tags:
+      - comida
+      summary: Obtener datos de una comida dada
+      operationId: getComidaFromId
+      parameters:
+      - name: id
+        in: path
+        description: ID de la comida
+        required: true
+        style: simple
+        explode: false
+        schema:
+          $ref: '#/components/schemas/id'
+      responses:
+        "200":
+          description: ACK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/comida'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/comida'
+        default:
+          description: Error al obtener el menú
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+    put:
+      tags:
+      - comida
+      summary: Modificar datos de una comida concreta
+      operationId: updateMenu
+      parameters:
+      - name: id
+        in: path
+        description: ID de la comida
+        required: true
+        style: simple
+        explode: false
+        schema:
+          $ref: '#/components/schemas/id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/comida_edit'
+      responses:
+        "201":
+          description: Ok
+        default:
+          description: Error al obtener el menú
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+    delete:
+      tags:
+      - comida
+      summary: Eliminar una comida del menú
+      description: TODO
+      operationId: eliminarComida
+      parameters:
+      - name: id
+        in: path
+        description: ID de la comida
+        required: true
+        style: simple
+        explode: false
+        schema:
+          $ref: '#/components/schemas/id'
+      responses:
+        "200":
+          description: ACK
+        default:
+          description: Error al obtener el menu
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+  /peliculas/{id}/diasDeLaSemana:
+    get:
+      tags:
+      - comida
+      - diasDeLaSemana
+      summary: Ver los días de la semana en los que esa comida está en el menú
+      operationId: getdiasDeLaSemanabyComidaId
+      parameters:
+      - name: id
+        in: path
+        description: ID de la comida
+        required: true
+        style: simple
+        explode: false
+        schema:
+          $ref: '#/components/schemas/id'
+      responses:
+        "200":
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/diasSemana'
+        default:
+          description: Error al acceder a la película
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+    post:
+      tags:
+      - comida
+      - diasDeLaSemana
+      summary: Añade la comida a un dia de la semana
+      operationId: addIdComidaToDiaSemana
+      parameters:
+      - name: id
+        in: path
+        description: ID de la comida
+        required: true
+        style: simple
+        explode: false
+        schema:
+          $ref: '#/components/schemas/id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/diasDeLaSemana'
+      responses:
+        "201":
+          description: ACK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/info_nuevo_elemento'
+        default:
+          description: Error al obtener comida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+components:
+  schemas:
+    id:
+      minimum: 1
+      type: integer
+    error:
+      type: object
+      properties:
+        descripcion:
+          type: string
+        codigo:
+          type: integer
+      example:
+        descripcion: Input error
+        codigo: 400
+    info_nuevo_elemento:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/id'
+      example:
+        id: 7
+    comidas:
+      type: array
+      items:
+        $ref: '#/components/schemas/comida'
+    comida:
+      example:
+        comida: Lentejas_con_chorizo
+        tipo:
+          tipo: legumbres
+        ingredientes:
+        - nombre: lentejas
+        - nombre: zanahorias
+        - nombre: chorizo
+        - nombre: guisantes
+        descripcion: Plato tradicional en españa
+      allOf:
+      - $ref: '#/components/schemas/comida_edit'
+      - required:
+        - comida
+        - descripcion
+        - ingredientes
+        - tipo
+    comida_edit:
+      minProperties: 1
+      type: object
+      properties:
+        comida:
+          type: string
+        descripcion:
+          type: string
+        tipo:
+          type: integer
+        ingredientes:
+          $ref: '#/components/schemas/array_ingredientes'
+      additionalProperties: false
+      example:
+        comida: Lentejas_con_chorizo
+    array_ingredientes:
+      type: array
+      items:
+        $ref: '#/components/schemas/ingrediente'
+    ingrediente:
+      required:
+      - nombre
+      type: object
+      properties:
+        nombre:
+          type: string
+      example:
+        nombre: Queso
+    diasSemana:
+      type: array
+      items:
+        $ref: '#/components/schemas/diasDeLaSemana'
+    diasDeLaSemana:
+      type: object
+      properties:
+        dia:
+          type: string
+          format: string
+        periodo:
+          type: string
+          format: string
+      example:
+        dia: Martes
+        periodo: Cena
+  parameters:
+    id:
+      name: id
+      in: path
+      description: ID de la comida
+      required: true
+      style: simple
+      explode: false
+      schema:
+        $ref: '#/components/schemas/id'
