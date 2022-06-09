@@ -214,7 +214,7 @@
         }
       }
     },
-    "/peliculas/{id}/diasDeLaSemana": {
+    "/comidas/{id}/diasDeLaSemana": {
       "get": {
         "tags": [
           "comida",

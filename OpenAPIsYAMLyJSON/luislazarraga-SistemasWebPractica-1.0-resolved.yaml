@@ -134,7 +134,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error'
-  /peliculas/{id}/diasDeLaSemana:
+  /comidas/{id}/diasDeLaSemana:
     get:
       tags:
       - comida

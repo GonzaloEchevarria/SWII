@@ -112,7 +112,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error'
-  /peliculas/{id}/diasDeLaSemana:
+  /comidas/{id}/diasDeLaSemana:
     get:
       summary: Ver los días de la semana en los que esa comida está en el menú
       operationId: getdiasDeLaSemanabyComidaId
