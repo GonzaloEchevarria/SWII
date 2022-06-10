@@ -4,70 +4,68 @@ info:
   version: '1.0'
   description: |
     # Título
-    API para los distintos platos de comida que incluimos en el menú.
-    Cuenta con operaciones CRUD para las comidas e ingredientes y su
+    API para las distintas recetas.
+    Cuenta con operaciones CRUD para las recetas e ingredientes y su
     disponibilidad en la semana 
     
 tags:
-  - name: comida
-    description: Menu
-  - name: diasDeLaSemana
-    description: Los dias donde la comida está disponible en el menu
+  - name: receta
+    description: recetas de plato de comida
 paths:
-  /comidas:
+  /recetas:
     get:
-      summary: Obtener el menu general
-      operationId: getMenu
+      summary: Obtener la receta
+      operationId: getReceta
       tags:
-        - comida
+        - receta
       responses:
         '200':
           description: OK/ACK
           content: 
             application/json:
               schema:
-                $ref: '#/components/schemas/comidas'
+                $ref: '#/components/schemas/recetas'
     post:
-      summary: Añadir una comida al menu
-      operationId: addComida
+      summary: Añadir una receta
+      operationId: addReceta
       tags:
-        - comida
+        - receta
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/comida'
+              $ref: '#/components/schemas/recetas'
       responses:
         '201':
-          description: Comida añadida al menú
+          description: Receta añadida
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/info_nuevo_elemento'
         default:
-          description: Error al añadir comida
+          description: Error al añadir receta
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/error'
-  /comidas/{id}:
+  /recetas/{id}:
     get:
-      summary: Obtener datos de una comida dada
-      operationId: getComidaFromId
+      summary: Obtener datos de una receta dada
+      operationId: getRecetaFromId
       tags:
-        - comida
+        - receta
       responses:
         '200':
           description: ACK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/comida'
+                $ref: '#/components/schemas/recetas'
             application/xml:
               schema:
-                $ref: '#/components/schemas/comida'
+                $ref: '#/components/schemas/recetas'
         default:
-          description: Error al obtener el menú
+          description: Error al obtener la receta
           content:
             application/json:
               schema:
@@ -75,17 +73,17 @@ paths:
       parameters:
         - $ref: '#/components/parameters/id'
     put:
-      summary: Modificar datos de una comida concreta
-      operationId: updateMenu
+      summary: Modificar datos de una receta concreta
+      operationId: updateReceta
       tags:
-        - comida
+        - receta
       parameters:
         - $ref: '#/components/parameters/id'
       responses:
         '201':
           description: Ok
         default:
-          description: Error al obtener el menú
+          description: Error al obtener la receta
           content:
             application/json:
               schema:
@@ -96,76 +94,28 @@ paths:
             schema:
               $ref: '#/components/schemas/comida_edit'
     delete:
-      summary: Eliminar una comida del menú
+      summary: Eliminar una receta del menú
       description: TODO
-      operationId: eliminarComida
+      operationId: deleteReceta
       tags:
-        - comida
+        - receta
       parameters:
         - $ref: '#/components/parameters/id'
       responses:
         '200':
           description: ACK
         default:
-          description: Error al obtener el menu
+          description: Error al obtener la receta
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/error'
-  /comidas/{id}/diasDeLaSemana:
-    get:
-      summary: Ver los días de la semana en los que esa comida está en el menú
-      operationId: getdiasDeLaSemanabyComidaId
-      tags:
-        - comida
-        - diasDeLaSemana
-      parameters:
-        - $ref: '#/components/parameters/id'
-      responses:
-        '200':
-          description: Ok
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/diasSemana'
-        default:
-          description: Error al acceder a la película
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/error'
-    post:
-      summary: Añade la comida a un dia de la semana
-      operationId: addIdComidaToDiaSemana
-      tags:
-        - comida
-        - diasDeLaSemana
-      parameters:
-        - $ref: '#/components/parameters/id'
-      responses:
-        '201':
-          description: ACK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/info_nuevo_elemento'
-        default:
-          description: Error al obtener comida
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/error'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/diasDeLaSemana'
 components:
   parameters:
     id:
       name: id
       in: path
-      description: ID de la comida
+      description: ID de la receta
       required: true
       schema:
         $ref: '#/components/schemas/id'
@@ -189,40 +139,43 @@ components:
         id:
           $ref: '#/components/schemas/id'
       example: {"id": 7}
-    comidas:
+    recetas:
       type: array
       items:
-        $ref: '#/components/schemas/comida'
-    comida:
+        $ref: '#/components/schemas/receta'
+    receta:
       allOf:
-        - $ref: '#/components/schemas/comida_edit'
+        - $ref: '#/components/schemas/receta_edit'
         - required:
-          - comida
-          - descripcion
-          - tipo
+          - titulo
           - ingredientes
+          - instrucciones
+          - imagen
       example:
-        {"comida": "Lentejas_con_chorizo",
-        "tipo":
-          {"tipo": "legumbres",},
+        {"receta": "Lentejas_con_chorizo",
+        "titulo":
+          {"titulo": "lentejas",},
         "ingredientes": [{"nombre": "lentejas"},{"nombre": "zanahorias"},{"nombre": "chorizo"}, {"nombre": "guisantes"},],
-        "descripcion": "Plato tradicional en españa"
+        "instrucciones": "Añadimos las lentejas, la hoja de laurel y las patatas, chascándolas con el cuchillo, y cocemos un par de minutos. Cubrimos con abundante agua fría y cocemos (mejor tapadas) durante 40-50 minutos o hasta que estén tiernas. Si se vieran muy secas, añadimos más agua durante el proceso. Calentamos un chorro de aceite en una sartén, añadimos el pimentón y retiramos inmediatamente del fuego para evitar que se queme. Incorporamos a la cacerola con las lentejas, removemos y cocemos cinco minutos más. Servimos bien calientes."
+         "imagen":""
       }
-    comida_edit:
+    receta_edit:
       type: object
       additionalProperties: false
       minProperties: 1
       properties:
-        comida:
+        receta:
           type: string
-        descripcion:
+        titulo:
           type: string
-        tipo:
-          type: integer
         ingredientes:
           $ref: '#/components/schemas/array_ingredientes'
+        instrucciones:
+          type: string
+        imagen:
+          type: string
       example:
-        {"comida": "Lentejas_con_chorizo"}
+        {"receta": "Lentejas_con_chorizo"}
     array_ingredientes:
       type: array
       items:
@@ -235,23 +188,6 @@ components:
         nombre:
           type: string
       example: {"nombre": "Queso"}
-    diasSemana:
-      type: array
-      items:
-        $ref: '#/components/schemas/diasDeLaSemana'
-    diasDeLaSemana:
-      type: object
-      properties:
-        dia:
-          type: string
-          format: string
-        periodo:
-          type: string
-          format: string
-      example:
-        {"dia": "Martes",
-        "periodo": "Cena",
-        }
 servers:
   # Added by API Auto Mocking Plugin
   - description: SwaggerHub API Auto Mocking

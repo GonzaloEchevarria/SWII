@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
-const password = "b5bHsjQwt0njEEDw"
-const dbname = "comidas"
-const uri = `mongodb+srv://GonzaloEchevarria:${password}@cluster0.ck48e.mongodb.net/${dbname}?retryWrites=true&w=majority`
+const password = "NvXpnshAEMHnXbi3"
+//const dbname = "receta"
+const uri = `mongodb+srv://Gonzalo:${password}@cluster0.szk00.mongodb.net/?retryWrites=true&w=majority`
 
 module.exports =()=> mongoose.connect(uri, {userNewUrlParser: true, useUnifiedTopology: true})
 
