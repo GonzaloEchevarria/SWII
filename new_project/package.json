@@ -1,0 +1,22 @@
+{
+  "name": "api-de-recetas",
+  "version": "2.0.0",
+  "description": "# Título API para recetas que permite operaciones CRUD con recetas. ",
+  "main": "index.js",
+  "scripts": {
+    "prestart": "npm install",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "swagger"
+  ],
+  "license": "Unlicense",
+  "private": true,
+  "dependencies": {
+    "connect": "^3.2.0",
+    "dotenv": "^16.0.1",
+    "js-yaml": "^3.3.0",
+    "oas3-tools": "^2.2.3",
+    "xmlbuilder2": "^3.0.2"
+  }
+}
