@@ -14,7 +14,7 @@
     "/recetas" : {
       "get" : {
         "summary" : "Obtener recetas",
-        "operationId" : "getReceta",
+        "operationId" : "getComida",
         "tags" : [ "receta" ],
         "responses" : {
           "200" : {

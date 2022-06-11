@@ -5,12 +5,13 @@ const ReceModel = require("../models/recetas.model")
 //comportamiento
 controller.index = async (req,res)=>{
     try {
-        const title = "RECETAS"
+        //const title = "RECETAS"
         await connection()
         console.log("Conexion BD OK")
         const allRecetas = await ReceModel.find()
         console.log(allRecetas)
-        res.render("index", {title});
+        //res.render("index", {title});
+        res.json(allRecetas)
     }catch (err){
         console.error(err)
     }

@@ -15,7 +15,7 @@ paths:
   /recetas:
     get:
       summary: Obtener la receta
-      operationId: getReceta
+      operationId: getComida
       tags:
         - receta
       responses:
