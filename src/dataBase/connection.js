@@ -1,38 +1,11 @@
 const mongoose = require("mongoose")
-const password = "NvXpnshAEMHnXbi3"
+const user = "SWII"
+const password = "YiicaAxtvAbSnjUJ"
 //const dbname = "receta"
-const uri = `mongodb+srv://Gonzalo:${password}@cluster0.szk00.mongodb.net/?retryWrites=true&w=majority`
-
-module.exports =()=> mongoose.connect(uri, {userNewUrlParser: true, useUnifiedTopology: true})
-
+uri = `mongodb+srv://${user}:${password}@cluster0.xihdh.mongodb.net/?retryWrites=true&w=majority`
+module.exports = ()=> mongoose.connect(uri)
 
 
+    //.then(() => console.log("base de datos conectada"))
+    //.catch(e=>console.log(e))
 
-
-//const { MongoClient } = require("mongodb");
-//const connectionString = process.env.MONGODB_URI;
-//const client = new MongoClient(connectionString, {
-    //useNewUrlParser: true,
-    //useUnifiedTopology: true,
-//});
-
-//let dbConnection;
-
-//module.exports = {
-    //connectToServer: function (callback) {
-      //  client.connect(function (err, db) {
-        //    if (err || !db) {
-          //      return callback(err);
-            //}
-
-            //dbConnection = db.db(process.env.DB);
-            //console.log("Successfully connected to MongoDB.");
-
-            //return callback();
-        //});
-    //},
-
-    //getDb: function () {
-      //  return dbConnection;
-    //}
-//};

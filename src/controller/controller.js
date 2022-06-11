@@ -1,19 +1,20 @@
-const controller = {}
-const connection =require("../dataBase/connection")
+const controller = {};
+const connection =require("../dataBase/connection");
 const ReceModel = require("../models/recetas.model")
 
 //comportamiento
 controller.index = async (req,res)=>{
     try {
-        const title = "INDEX DESDE EL SERVIDOR!!"
+        const title = "RECETAS"
         await connection()
+        console.log("Conexion BD OK")
         const allRecetas = await ReceModel.find()
         console.log(allRecetas)
-        res.render("index", {title})
+        res.render("index", {title});
     }catch (err){
         console.error(err)
     }
-}
+};
 
 module.exports = controller
 

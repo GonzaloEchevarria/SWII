@@ -8,6 +8,6 @@ const ReceSchema = new Schema({
     imagen: String
 })
 
-const ReceModel = mongoose.model("Comidas", ReceSchema)
+const ReceModel = mongoose.model("recetas", ReceSchema)
 
 module.exports = ReceModel
