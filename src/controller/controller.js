@@ -17,22 +17,24 @@ controller.index = async (req,res)=>{
     }
 };
 
+controller.addReceta = async (req,res)=>{
+    try {
+        console.log(req.body);
+        const receta = {
+            titulo: req.body.titulo,
+            ingredientes: req.body.ingredientes,
+            instrucciones: req.body.instrucciones,
+            imagen: req.body.imagen
+        };
+        await connection();
+        await ReceModel.create(receta)
+        const allRecetas = await ReceModel.find()
+        console.log(allRecetas)
+        res.status(201).send("Receta añadida")
+    }catch (err){
+        res.status().send("Error al añadir receta")
+        console.error(err)
+    }
+};
+
 module.exports = controller
-
-
-
-//const connection = require("../../dataBase/connection")
-
-
-//controller.index = async (req,res)=>{
-  //  try {
-    //    const title = "INDEX desde el servidor"
-      //  await connection()
-        //console.log("CONECTION OK")
-        //res.render("index", {title})
-    //}catch (err){
-      //  console.error(err)
-    //}
-//}
-
-//module.exports = controller

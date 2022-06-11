@@ -1,7 +1,6 @@
 const mongoose = require("mongoose")
 const user = "SWII"
 const password = "YiicaAxtvAbSnjUJ"
-//const dbname = "receta"
 uri = `mongodb+srv://${user}:${password}@cluster0.xihdh.mongodb.net/?retryWrites=true&w=majority`
 module.exports = ()=> mongoose.connect(uri)
 
