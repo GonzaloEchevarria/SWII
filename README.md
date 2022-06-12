@@ -1,23 +1,23 @@
 # Practica SW2
 ## First Steps
-###1 .Clone the git repo
+### 1 .Clone the git repo
 
 ```
 git clone https://github.com/GonzaloEchevarria/SWII.git
 cd SWII
 ```
-###2.Create the DB
+### 2.Create the DB
 > You have to create a MongoDB Database (You can use MongoDB Compass)
-###3.Load data in the DB
+### 3.Load data in the DB
 > Using MongoDB Compass, create an collection called 'recetas' and import the data from output.json to the collection
 
-###4.Download images for client (Optional, but Recomended)
+### 3.Download images for client (Optional, but Recomended)
 > Please, go to `https://www.kaggle.com/datasets/pes12017000148/food-ingredients-and-recipe-dataset-with-images?resource=download` and download de Dataset.
 
 > Copy the images of the Food Images directory in the zip file to `cliente/apps/static/recipes`
 
 ## ✨ Quick Start Server
-###1 .Install the requeriments
+### 1 .Install the requeriments
 Depending on your operating system,make a virtual environment to avoid messing with your machine's primary dependencies
 >You have to be in SWII directory
 ```
@@ -40,7 +40,7 @@ npm start
 
 ## ✨ Quick Start Cliente
 
-###1 .Create an environment
+### 1 .Create an environment
 Depending on your operating system,make a virtual environment to avoid messing with your machine's primary dependencies
 >You have to be in SWII directory
 ```
