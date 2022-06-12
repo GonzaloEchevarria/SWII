@@ -62,8 +62,8 @@ module.exports.getReceta = function getReceta (req, res, next, id) {
     });
 };
 
-module.exports.getRecetas = function getRecetas (req, res, next, page, page_size) {
-  Receta.getRecetas(page, page_size)
+module.exports.getRecetas = function getRecetas (req, res, next, page, page_size, search) {
+  Receta.getRecetas(page, page_size, search)
     .then(function (response) {
       utils.writeJson(res, response);
     })

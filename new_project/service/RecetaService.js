@@ -86,20 +86,24 @@ exports.getReceta = function(id) {
  *
  * returns recetas
  **/
-exports.getRecetas = function(page, page_size) {
+exports.getRecetas = function(page, page_size, search) {
   return new Promise(function(resolve, reject) {
+    console.log(search);
     const dbConnect = dbo.getDb();
     const collection = dbConnect.collection('recetas');
-    collection.countDocuments({}).then((count) => {
+    var f = {};
+      if(search != undefined) f = {Title: {$regex: new RegExp( "^" +search.toLowerCase(), "i")}};
+    collection.countDocuments(f).then((count) => {
+      if(count == 0) reject({codigo: 404, descripcion: "No se ha encontrado ninguna receta"});
       if(page_size == null) {
         page_size = 20;
       }
       if(page == null) {
         page = 1;
-      } else if(page*page_size>count) reject({codigo: 400, descripcion: "limite de páginas superado"});
-      console.log(count)
+      } else if((page-1)*page_size>count) reject({codigo: 400, descripcion: "limite de páginas superado"});
+      var page_count = Math.ceil(count/page_size);
       collection
-        .find({})
+        .find(f)
         .skip((page-1)*page_size)
         .limit(page_size)
         .toArray(function (err, result){
@@ -107,7 +111,7 @@ exports.getRecetas = function(page, page_size) {
             reject({codigo: 500, descripcion: "Error al obtener las recetas"});
           } else {
             if (result.length > 0) {
-              resolve(result);
+              resolve({page:page,page_size:page_size,page_count:page_count,data:result});
             } else {
               resolve();
             }

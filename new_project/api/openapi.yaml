@@ -43,6 +43,15 @@ paths:
         schema:
           minimum: 1
           type: integer
+      - name: search
+        in: query
+        description: string a buscar
+        required: false
+        style: form
+        explode: true
+        schema:
+          minimum: 1
+          type: string
       responses:
         "200":
           description: OK
@@ -415,3 +424,12 @@ components:
       schema:
         minimum: 1
         type: integer
+    search:
+      name: search
+      in: query
+      description: string a buscar
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: string
