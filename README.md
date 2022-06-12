@@ -12,7 +12,7 @@ cd SWII
 > Using MongoDB Compass, create an collection called 'recetas' and import the data from output.json to the collection
 
 ### 3.Download images for client (Optional, but Recomended)
-> Please, go to `https://www.kaggle.com/datasets/pes12017000148/food-ingredients-and-recipe-dataset-with-images?resource=download` and download de Dataset.
+> Please, [download](https://www.kaggle.com/datasets/pes12017000148/food-ingredients-and-recipe-dataset-with-images?resource=download) de Dataset.
 
 > Copy the images of the Food Images directory in the zip file to `cliente/apps/static/recipes`
 
