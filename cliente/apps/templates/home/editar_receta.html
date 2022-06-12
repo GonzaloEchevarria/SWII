@@ -1,0 +1,79 @@
+{% import "bootstrap/wtf.html" as wtf %}
+{% extends "layouts/base.html" %}
+{% block title %} Editar receta {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+	<!-- [ Main Content ] start -->
+	<div class="pcoded-main-container">
+
+		<div class="pcoded-content">
+            {% with messages = get_flashed_messages(category_filter='error') %}
+               {% if messages %}
+                  {% for message in messages %}
+                      <div class="alert alert-danger h4" role="alert">
+                        {{ message }}
+                        </div>
+                  {% endfor %}
+               {% endif %}
+            {% endwith %}
+
+        {% with messages = get_flashed_messages(category_filter='success') %}
+               {% if messages %}
+                  {% for message in messages %}
+                      <div class="alert alert-success h4" role="alert">
+                        {{ message }}
+                        </div>
+                  {% endfor %}
+               {% endif %}
+            {% endwith %}
+
+			<!-- [ breadcrumb ] start -->
+			<div class="page-header">
+				<div class="page-block">
+					<div class="row align-items-center">
+						<div class="col-md-12">
+							<div class="page-header-title">
+								<h5 class="m-b-10">Editar Receta  #{{ id }}</h5>
+							</div>
+							<ul class="breadcrumb">
+								<li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
+								<li class="breadcrumb-item"><a href="#!">Editar Receta</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- [ breadcrumb ] end -->
+			<!-- [ Main Content ] start -->
+			<div class="row">
+                <div class="col-sm-12">
+					<div class="card">
+						<div class="card-header">
+                            <h5>Editar Receta</h5>
+                          <div class="card-header-right">
+                            <div class="btn-group card-option">
+                                <a type="button" class="btn btn-icon" href="{{ url_for('home_blueprint.delete_receta', id=id) }}">
+                                    <i class="feather icon-trash"></i>
+                                </a>
+                            </div>
+                          </div>
+                      </div>
+						<div class="card-body">
+							{{ wtf.quick_form(form) }}
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- [ Main Content ] end -->
+		</div>
+	</div>
+	<!-- [ Main Content ] end -->
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

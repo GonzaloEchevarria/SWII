@@ -1,0 +1,147 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Ver recetas {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}	
+
+	<!-- [ Main Content ] start -->
+	<div class="pcoded-main-container">
+
+		<div class="pcoded-content">
+            {% with messages = get_flashed_messages(category_filter='error') %}
+               {% if messages %}
+                  {% for message in messages %}
+                      <div class="alert alert-danger h4" role="alert">
+                        {{ message }}
+                        </div>
+                  {% endfor %}
+               {% endif %}
+            {% endwith %}
+            {% with messages = get_flashed_messages(category_filter='success') %}
+               {% if messages %}
+                  {% for message in messages %}
+                      <div class="alert alert-success h4" role="alert">
+                        {{ message }}
+                        </div>
+                  {% endfor %}
+               {% endif %}
+            {% endwith %}
+			<!-- [ breadcrumb ] start -->
+			<div class="page-header">
+				<div class="page-block">
+					<div class="row align-items-center">
+						<div class="col-md-12">
+							<div class="page-header-title">
+								<h5 class="m-b-10">Ver Recetas</h5>
+							</div>
+							<ul class="breadcrumb">
+								<li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
+								<li class="breadcrumb-item"><a href="#!">Ver Recetas</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- [ breadcrumb ] end -->
+			<!-- [ Main Content ] start -->
+			<div class="row">
+				<!-- [ recipe-page ] start -->
+				<div class="col-sm-12">
+                {% if data.data %}
+                  {% for recipe in data.data %}
+					<div class="card">
+                        <div class="card-header">
+                          <div class="card-header-right">
+                            <div class="btn-group card-option">
+                                <button type="button" class="btn dropdown-toggle btn-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="feather icon-more-horizontal"></i>
+                                </button>
+                                <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
+                                    <li class="dropdown-item"><a href="{{ url_for('home_blueprint.edit_receta', id=recipe._id) }}"><i class="feather icon-edit-1"></i> Editar</a></li>
+                                    <li class="dropdown-item"><a href="{{ url_for('home_blueprint.delete_receta', id=recipe._id) }}"><i class="feather icon-trash"></i> Eliminar</a></li>
+                                </ul>
+                            </div>
+                          </div>
+                      </div>
+                        <div class="card-body">
+							<div class="row container-fluid">
+                                <div class="card mb-3  col-lg-4 col-md-6 col-12">
+                                    {% if recipe.Image_Name %}
+                                        <img class="img-fluid card-img-top" src="static/recipes/{{ recipe.Image_Name }}" alt="Card image cap">
+                                    {% endif %}
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ recipe.Title }}</h5>
+                                        <ul class="card-text">
+                                            {% for Ingredient in recipe.Ingredients %}
+                                                <li>{{ Ingredient }}</li>
+                                            {% endfor %}
+
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8 col-md-6 col-12">
+                                    <h2>Instrucciones:</h2>
+                                    <div class="">
+                                        {% for instr in recipe.Instructions.split('.') %}
+                                            <p>{{ instr }}</p>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+						</div>
+					</div>
+                {% endfor %}
+               {% endif %}
+                {% if data.page %}
+                    <div>
+						<div class="">
+							<hr>
+							<nav aria-label="Page navigation example">
+								<ul class="pagination justify-content-center">
+                                    {% if data.page == 1 %}
+									<li class="page-item disabled">
+                                        <a class="page-link" href="#!" tabindex="-1">Previous</a>
+									</li>
+                                    {% else %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="{{ url_for('home_blueprint.recetas', page=data.page-1) }}" tabindex="-1">Previous</a>
+									</li>
+                                    {% endif %}
+                                    {% for i in range(1, (data.page_count+1)) %}
+                                        {% if (i <= (data.page+3) and i >= (data.page-3)) or i<= 1 or i>(data.page_count-1) %}
+                                            {% if i==data.page %}
+                                                <li class="page-item active"><a class="page-link" href="{{ url_for('home_blueprint.recetas', page=i) }}">{{ i }}</a></li>
+                                            {% else %}
+									            <li class="page-item"><a class="page-link" href="{{ url_for('home_blueprint.recetas', page=i) }}">{{ i }}</a></li>
+                                            {% endif %}
+                                        {% endif %}
+                                    {%  endfor %}
+                                    {% if data.page == data.page_count %}
+									<li class="page-item disabled">
+                                        <a class="page-link" href="#!" tabindex="-1">Next</a>
+									</li>
+                                    {% else %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="{{ url_for('home_blueprint.recetas', page=data.page+1) }}" tabindex="-1">Next</a>
+									</li>
+                                    {% endif %}
+								</ul>
+							</nav>
+						</div>
+					</div>
+				</div>
+                {% endif %}
+				<!-- [ sample-page ] end -->
+			</div>
+			<!-- [ Main Content ] end -->
+		</div>
+	</div>
+	<!-- [ Main Content ] end -->
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

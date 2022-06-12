@@ -1,0 +1,87 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Ver nuevas recetas {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+	<!-- [ Main Content ] start -->
+	<div class="pcoded-main-container">
+
+		<div class="pcoded-content">
+            {% with messages = get_flashed_messages(category_filter='error') %}
+               {% if messages %}
+                  {% for message in messages %}
+                      <div class="alert alert-danger h4" role="alert">
+                        {{ message }}
+                        </div>
+                  {% endfor %}
+               {% endif %}
+            {% endwith %}
+			<!-- [ breadcrumb ] start -->
+			<div class="page-header">
+				<div class="page-block">
+					<div class="row align-items-center">
+						<div class="col-md-12">
+							<div class="page-header-title">
+								<h5 class="m-b-10">Ver Nuevas Recetas</h5>
+							</div>
+							<ul class="breadcrumb">
+								<li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
+								<li class="breadcrumb-item"><a href="#!">Ver Nuevas Recetas</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- [ breadcrumb ] end -->
+			<!-- [ Main Content ] start -->
+			<div class="row">
+				<!-- [ recipe-page ] start -->
+                {% if data %}
+                  {% for recipe in data %}
+				<div class="col-sm-12">
+					<div class="card">
+						<div class="card-body">
+							<div class="row container-fluid">
+                                <div class="card mb-3  col-lg-4 col-md-6 col-12">
+                                    {% if recipe.Image_Url %}
+                                        <img class="img-fluid card-img-top" src="{{ recipe.Image_Url }}" alt="Card image cap">
+                                    {% endif %}
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ recipe.Title }}</h5>
+                                        <ul class="card-text">
+                                            {% for Ingredient in recipe.Ingredients %}
+                                                <li>{{ Ingredient }}</li>
+                                            {% endfor %}
+
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8 col-md-6 col-12">
+                                    <h2>Instrucciones:</h2>
+                                    <div class="">
+                                        {% for instr in recipe.Instructions.split('.') %}
+                                            <p>{{ instr }}</p>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+						</div>
+					</div>
+                {% endfor %}
+               {% endif %}
+				<!-- [ sample-page ] end -->
+
+			</div>
+			<!-- [ Main Content ] end -->
+		</div>
+	</div>
+	<!-- [ Main Content ] end -->
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

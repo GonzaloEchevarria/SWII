@@ -1,0 +1,50 @@
+
+	<!-- [ navigation menu ] start -->
+	<nav class="pcoded-navbar menupos-fixed menu-light ">
+		<div class="navbar-wrapper  ">
+			<div class="navbar-content scroll-div " >
+				<ul class="nav pcoded-inner-navbar ">
+					<li class="nav-item pcoded-menu-caption">
+						<label>Inicio</label>
+					</li>
+					<li class="nav-item">
+					    <a href="/index" class="nav-link ">
+                            <span class="pcoded-micon">
+                                <i class="feather icon-home"></i></span><span class="pcoded-mtext">Inicio</span></a>
+					</li>
+					<li class="nav-item pcoded-menu-caption">
+						<label>Recetas</label>
+					</li>
+                    <li class="nav-item">
+					    <a href="{{ url_for('home_blueprint.recetas') }}" class="nav-link ">
+                            <span class="pcoded-micon">
+                                <i class="fas fa-list"></i></span><span class="pcoded-mtext">Ver Recetas</span></a>
+					</li>
+                    <li class="nav-item">
+					    <a href="{{ url_for('home_blueprint.new_receta') }}" class="nav-link ">
+                            <span class="pcoded-micon">
+                                <i class="fas fa-plus-circle"></i></span><span class="pcoded-mtext">Crear Receta</span></a>
+					</li>
+                    <li class="nav-item">
+					    <a href="{{ url_for('home_blueprint.news') }}" class="nav-link ">
+                            <span class="pcoded-micon">
+                                <i class="fas fa-rss"></i></span><span class="pcoded-mtext">Ver nuevas recetas</span></a>
+					</li>
+                    <li class="nav-item pcoded-menu-caption">
+						<label>Información nutricional</label>
+					</li>
+                    <li class="nav-item">
+					    <a href="{{ url_for('home_blueprint.nutricional') }}" class="nav-link ">
+                            <span class="pcoded-micon">
+                                <i class="fas fa-heart"></i></span><span class="pcoded-mtext">Obtener información nutricional</span></a>
+					</li>
+
+
+
+				</ul>
+
+				
+			</div>
+		</div>
+	</nav>
+    <!-- [ navigation menu ] end -->

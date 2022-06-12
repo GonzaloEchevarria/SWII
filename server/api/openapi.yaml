@@ -232,9 +232,6 @@ components:
     id:
       minimum: 0
       type: integer
-    _id:
-      minimum: 0
-      type: integer
     alimento:
       type: string
     error:
@@ -269,14 +266,14 @@ components:
             $ref: '#/components/schemas/receta'
       example:
         data:
-        - id: 1
+        - _id: 1
           Title: Patatas fritas
           Image_Name: imagen_prueba.jpg
           Instructions: Frie las patatas
           Ingredients:
           - Patatas
           - Aceite
-        - id: 1
+        - _id: 1
           Title: Patatas fritas
           Image_Name: imagen_prueba.jpg
           Instructions: Frie las patatas
@@ -287,19 +284,35 @@ components:
         page_count: 1
         page_size: 6
     receta:
+      type: object
+      properties:
+        _id:
+          type: integer
+          minimum: 0
+        Image_Name:
+          type: string
+          nullable: true
+        Instructions:
+          type: string
+        Ingredients:
+          $ref: '#/components/schemas/ingredientes'
+        Title:
+          type: string
+      required:
+        - _id
+        - Image_Name
+        - Instructions
+        - Ingredients
+        - Title
       example:
-        id: 1
+        _id: 1
         Title: Patatas fritas
         Image_Name: imagen_prueba.jpg
         Instructions: Frie las patatas
         Ingredients:
         - Patatas
         - Aceite
-      allOf:
-      - $ref: '#/components/schemas/receta_editada'
-      - $ref: '#/components/schemas/_id'
     receta_editada:
-      additionalProperties: false
       type: object
       properties:
         Title:
