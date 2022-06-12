@@ -16,9 +16,11 @@
     "axios": "^0.27.2",
     "connect": "^3.2.0",
     "dotenv": "^16.0.1",
+    "fast-xml-parser": "^4.0.8",
     "js-yaml": "^3.3.0",
     "mongodb": "^4.7.0",
     "oas3-tools": "^2.2.3",
-    "xmlbuilder2": "^3.0.2"
+    "xmlbuilder2": "^3.0.2",
+    "xpath-html": "^1.0.3"
   }
 }

@@ -326,20 +326,7 @@ components:
     news:
       type: array
       items:
-        $ref: '#/components/schemas/new'
-    new:
-      type: object
-      properties:
-        title:
-          type: string
-        descripcion:
-          type: string
-        link:
-          type: string
-      example:
-        descripcion: descripcion
-        link: link
-        title: title
+        $ref: '#/components/schemas/receta_editada'
     nutricional:
       type: object
       properties:

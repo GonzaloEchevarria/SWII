@@ -9,6 +9,6 @@ module.exports.getNews = function getNews (req, res, next) {
       utils.writeJson(res, response);
     })
     .catch(function (response) {
-      utils.writeJson(res, response);
+      utils.writeJson(res,response,response.codigo);
     });
 };
