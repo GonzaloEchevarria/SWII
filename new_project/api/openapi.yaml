@@ -323,10 +323,35 @@ components:
     ingrediente:
       type: string
       example: Patatas
+    new:
+      additionalProperties: false
+      type: object
+      properties:
+        Title:
+          type: string
+        Image_Url:
+          type: string
+          nullable: true
+        Instructions:
+          type: string
+        Ingredients:
+          $ref: '#/components/schemas/ingredientes'
+      required:
+        - Title
+        - Image_Url
+        - Instructions
+        - Ingredients
+      example:
+        Title: Patatas fritas
+        Image_Url: http://www.recetasycocina.net/gestor/upload/Mozzarella-Sticks-caseros.jpg
+        Instructions: Frie las patatas
+        Ingredients:
+        - Patatas
+        - Aceite
     news:
       type: array
       items:
-        $ref: '#/components/schemas/receta_editada'
+        $ref: '#/components/schemas/new'
     nutricional:
       type: object
       properties:

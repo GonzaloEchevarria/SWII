@@ -46,7 +46,7 @@ exports.getNews = function() {
 				else image = null;
 				data.push({
 					Title: select("//x:h1[@itemprop='name']/text()",d).toString(),
-					Image_Name: image,
+					Image_Url: image,
 					Instructions: select("//x:div[@itemprop='instructions']/text()",d).toString(),
 					Ingredients: a
 				});
