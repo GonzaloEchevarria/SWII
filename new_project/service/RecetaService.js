@@ -45,7 +45,7 @@ exports.deleteReceta = function(id) {
         console.log(err);
         reject({codigo: 500, descripcion: "Se ha producido un error"});
       } else{
-        if(result.deletedCount == 0) reject({codigo: 400, descripcion: "No existe ninguna receta con ese identificador"})
+        if(result.deletedCount == 0) reject({codigo: 404, descripcion: "No existe ninguna receta con ese identificador"})
         else resolve("OK");
       }
     });
@@ -72,7 +72,7 @@ exports.getReceta = function(id) {
         console.log(err);
         reject({codigo: 500, descripcion: "Se ha producido un error"});
       } else{
-        if(result == null) reject({codigo: 400, descripcion: "No existe ninguna receta para el id indicado"});
+        if(result == null) reject({codigo: 404, descripcion: "No existe ninguna receta para el id indicado"});
         else resolve(result);
       }
     });
@@ -136,7 +136,7 @@ exports.updateReceta = function(body,id) {
         console.log(err);
         reject({codigo: 500, descripcion: "Se ha producido un error"});
       } else{
-        if(result.modifiedCount == 0) reject({codigo: 400, descripcion: "No existe ninguna receta con ese identificador"})
+        if(result.modifiedCount == 0) reject({codigo: 404, descripcion: "No existe ninguna receta con ese identificador"})
         else resolve("OK");
       }
     });

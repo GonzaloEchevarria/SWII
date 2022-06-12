@@ -187,7 +187,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error'
-      x-swagger-router-controller: Receta
+      x-swagger-router-controller: News
   /nutricional_info:
     get:
       tags:
@@ -345,17 +345,25 @@ components:
       properties:
         sugar:
           type: number
+          description: gramos de azucar por ración
         protein:
           type: number
+          description: gramos de proteinas por ración
         cholesterol:
           type: number
+          description: miligramos de colesterol por ración
         calories:
           type: number
+          description: calorías por ración
+        racion:
+          type: number
+          description: gramos de una ración
       example:
-        protein: 6.027456183070403
-        cholesterol: 1.4658129805029452
-        calories: 5.962133916683182
-        sugar: 0.8008281904610115
+        protein: 0
+        cholesterol: 0
+        calories: 42.9
+        sugar: 11.6
+        racion: 100
   parameters:
     id:
       name: id

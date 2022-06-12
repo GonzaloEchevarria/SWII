@@ -9,6 +9,7 @@ module.exports.getNutricional = function getNutricional (req, res, next, ingredi
       utils.writeJson(res, response);
     })
     .catch(function (response) {
-      utils.writeJson(res, response);
+      utils.writeJson(res,response,response.codigo);
+
     });
 };

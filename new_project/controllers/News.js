@@ -1,10 +1,10 @@
 'use strict';
 
 var utils = require('../utils/writer.js');
-var Receta = require('../service/NewsService');
+var NewsService = require('../service/NewsService');
 
 module.exports.getNews = function getNews (req, res, next) {
-  Receta.getNews()
+  NewsService.getNews()
     .then(function (response) {
       utils.writeJson(res, response);
     })
