@@ -181,16 +181,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/news'
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/news'
         default:
           description: Error al acceder a las nuevas recetas
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/error'
-            application/xml:
               schema:
                 $ref: '#/components/schemas/error'
       x-swagger-router-controller: Receta
