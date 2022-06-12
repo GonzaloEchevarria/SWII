@@ -1,0 +1,448 @@
+openapi: 3.0.3
+info:
+  title: API de recetas
+  description: |
+    # Título
+    API para recetas que permite
+    operaciones CRUD con recetas.
+  version: 2.0.0
+servers:
+- url: http://localhost:8080
+  description: Servidor local de pruebas
+- url: https://virtserver.swaggerhub.com/miguel15/recetario/2.0.0
+  description: SwaggerHub API Auto Mocking
+tags:
+- name: receta
+  description: Recetas
+- name: nutricional
+  description: Información nutricional
+paths:
+  /recetas:
+    get:
+      tags:
+      - receta
+      summary: Obtener todas las recetas
+      description: Obtener un listado de todas las recetas
+      operationId: getRecetas
+      parameters:
+      - name: page
+        in: query
+        description: pagina solicitada
+        required: false
+        style: form
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+      - name: page_size
+        in: query
+        description: Cantidad de elementos solicitados
+        required: false
+        style: form
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+      - name: search
+        in: query
+        description: string a buscar
+        required: false
+        style: form
+        explode: true
+        schema:
+          minimum: 1
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/recetas_pagination'
+      x-swagger-router-controller: Receta
+    post:
+      tags:
+      - receta
+      summary: Crear una nueva receta
+      description: TODO
+      operationId: createReceta
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/receta_editada'
+      responses:
+        "201":
+          description: Película creada con éxito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/info_nuevo_elemento'
+        default:
+          description: Error al crear la receta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      x-swagger-router-controller: Receta
+  /recetas/{id}:
+    get:
+      tags:
+      - receta
+      summary: Obtener información de una receta concreta
+      description: TODO
+      operationId: getReceta
+      parameters:
+      - name: id
+        in: path
+        description: ID del elemento
+        required: true
+        style: simple
+        explode: false
+        schema:
+          $ref: '#/components/schemas/id'
+      responses:
+        "200":
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/receta'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/receta'
+        default:
+          description: Error al acceder a la receta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/error'
+      x-swagger-router-controller: Receta
+    put:
+      tags:
+      - receta
+      summary: Modificar información de una receta concreta
+      description: TODO
+      operationId: updateReceta
+      parameters:
+      - name: id
+        in: path
+        description: ID del elemento
+        required: true
+        style: simple
+        explode: false
+        schema:
+          $ref: '#/components/schemas/id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/receta_editada'
+      responses:
+        "201":
+          description: Ok
+        default:
+          description: Error al acceder a la receta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      x-swagger-router-controller: Receta
+    delete:
+      tags:
+      - receta
+      summary: Borrar una receta específica
+      description: TODO
+      operationId: deleteReceta
+      parameters:
+      - name: id
+        in: path
+        description: ID del elemento
+        required: true
+        style: simple
+        explode: false
+        schema:
+          $ref: '#/components/schemas/id'
+      responses:
+        "200":
+          description: Ok
+        default:
+          description: Error al acceder a la receta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      x-swagger-router-controller: Receta
+  /recetas/news:
+    get:
+      tags:
+      - receta
+      summary: Obtener Un listado de nuevas recetas
+      description: Obtiene un listado con las nuevas recetas y sus enlaces
+      operationId: getNews
+      responses:
+        "200":
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/news'
+        default:
+          description: Error al acceder a las nuevas recetas
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      x-swagger-router-controller: News
+  /nutricional_info:
+    get:
+      tags:
+      - nutricional
+      summary: Obtener información nutricional de un alimento
+      description: obtiene información nutricional de un alimento
+      operationId: getNutricional
+      parameters:
+      - name: ingrediente
+        in: query
+        description: Nombre del alimento
+        required: true
+        style: form
+        explode: true
+        schema:
+          $ref: '#/components/schemas/alimento'
+      responses:
+        "200":
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/nutricional'
+        default:
+          description: Error al obtener informacion
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      x-swagger-router-controller: Nutricional
+components:
+  schemas:
+    id:
+      minimum: 0
+      type: integer
+    alimento:
+      type: string
+    error:
+      type: object
+      properties:
+        descripcion:
+          type: string
+        codigo:
+          type: integer
+      example:
+        descripcion: Datos introducidos erroneos
+        codigo: 400
+    info_nuevo_elemento:
+      type: object
+      properties:
+        _id:
+          $ref: '#/components/schemas/id'
+      example:
+        id: 123
+    recetas_pagination:
+      type: object
+      properties:
+        page:
+          type: integer
+        page_size:
+          type: integer
+        page_count:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/receta'
+      example:
+        data:
+        - _id: 1
+          Title: Patatas fritas
+          Image_Name: imagen_prueba.jpg
+          Instructions: Frie las patatas
+          Ingredients:
+          - Patatas
+          - Aceite
+        - _id: 1
+          Title: Patatas fritas
+          Image_Name: imagen_prueba.jpg
+          Instructions: Frie las patatas
+          Ingredients:
+          - Patatas
+          - Aceite
+        page: 0
+        page_count: 1
+        page_size: 6
+    receta:
+      type: object
+      properties:
+        _id:
+          type: integer
+          minimum: 0
+        Image_Name:
+          type: string
+          nullable: true
+        Instructions:
+          type: string
+        Ingredients:
+          $ref: '#/components/schemas/ingredientes'
+        Title:
+          type: string
+      required:
+        - _id
+        - Image_Name
+        - Instructions
+        - Ingredients
+        - Title
+      example:
+        _id: 1
+        Title: Patatas fritas
+        Image_Name: imagen_prueba.jpg
+        Instructions: Frie las patatas
+        Ingredients:
+        - Patatas
+        - Aceite
+    receta_editada:
+      type: object
+      properties:
+        Title:
+          type: string
+        Image_Name:
+          type: string
+          nullable: true
+        Instructions:
+          type: string
+        Ingredients:
+          $ref: '#/components/schemas/ingredientes'
+      required:
+        - Title
+        - Image_Name
+        - Instructions
+        - Ingredients
+      example:
+        Title: Patatas fritas
+        Image_Name: imagen_prueba.jpg
+        Instructions: Frie las patatas
+        Ingredients:
+        - Patatas
+        - Aceite
+    ingredientes:
+      type: array
+      items:
+        $ref: '#/components/schemas/ingrediente'
+      xml:
+        wrapped: true
+    ingrediente:
+      type: string
+      example: Patatas
+    new:
+      additionalProperties: false
+      type: object
+      properties:
+        Title:
+          type: string
+        Image_Url:
+          type: string
+          nullable: true
+        Instructions:
+          type: string
+        Ingredients:
+          $ref: '#/components/schemas/ingredientes'
+      required:
+        - Title
+        - Image_Url
+        - Instructions
+        - Ingredients
+      example:
+        Title: Patatas fritas
+        Image_Url: http://www.recetasycocina.net/gestor/upload/Mozzarella-Sticks-caseros.jpg
+        Instructions: Frie las patatas
+        Ingredients:
+        - Patatas
+        - Aceite
+    news:
+      type: array
+      items:
+        $ref: '#/components/schemas/new'
+    nutricional:
+      type: object
+      properties:
+        sugar:
+          type: number
+          description: gramos de azucar por ración
+        protein:
+          type: number
+          description: gramos de proteinas por ración
+        cholesterol:
+          type: number
+          description: miligramos de colesterol por ración
+        calories:
+          type: number
+          description: calorías por ración
+        racion:
+          type: number
+          description: gramos de una ración
+      example:
+        protein: 0
+        cholesterol: 0
+        calories: 42.9
+        sugar: 11.6
+        racion: 100
+  parameters:
+    id:
+      name: id
+      in: path
+      description: ID del elemento
+      required: true
+      style: simple
+      explode: false
+      schema:
+        $ref: '#/components/schemas/id'
+    ingrediente:
+      name: ingrediente
+      in: query
+      description: Nombre del alimento
+      required: true
+      style: form
+      explode: true
+      schema:
+        $ref: '#/components/schemas/alimento'
+    page:
+      name: page
+      in: query
+      description: pagina solicitada
+      required: false
+      style: form
+      explode: false
+      schema:
+        minimum: 1
+        type: integer
+    page_size:
+      name: page_size
+      in: query
+      description: Cantidad de elementos solicitados
+      required: false
+      style: form
+      explode: false
+      schema:
+        minimum: 1
+        type: integer
+    search:
+      name: search
+      in: query
+      description: string a buscar
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: string

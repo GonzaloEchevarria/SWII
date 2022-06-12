@@ -1,0 +1,32 @@
+{
+  $jsonSchema: {
+    bsonType: 'object',
+    properties: {
+      _id: {
+        bsonType: 'int'
+      },
+      Image_Name: {
+        bsonType: 'string'
+      },
+      Instructions: {
+        bsonType: 'string'
+      },
+      Ingredients: {
+        bsonType: 'array',
+        items: {
+          bsonType: 'string'
+        }
+      },
+      Title: {
+        bsonType: 'string'
+      }
+    },
+    required: [
+      'Image_Name',
+      'Ingredients',
+      'Instructions',
+      'Title',
+      '_id'
+    ]
+  }
+}
